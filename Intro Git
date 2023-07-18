@@ -117,3 +117,115 @@ Pour etre integrees dans un systeme d'info, les donnees doivent etre triees et o
 - le type numerique (integer, float, ...)
 - le type date (date, datetime, timestamp)
 - le logique ou booleen (true, false)
+
+<br>
+Creation d'un dictionnaire de donnees :
+
+![Alt text](image-2.png)
+
+### Les dependances fonctionnelles
+
+Intervention sur 2 attributs
+
+Exemple: une donnee A depend fonctionnellemetn d'une donnee B si la valeur de B determine la valeur de A
+
+Pour finaliser une dependance fonctionnelle on utilise la notation suivante:
+`Numero adherent (nom, prenom,code postal, ville, telephone, date d'adhesion, mail)`
+
+La partie gauche (numero adherent) est la `source` de la dependance fonctionnelle.
+La partie droite designe le `but` de la dependance
+
+
+### Les dependances fonctionnelles composees
+
+Intervention sur plusieurs attributs
+
+Exemple: pour connaitre le temps d'un coureur sur une etape donnee il nous faut son numero ou son nom ainsi que le nom ou le numero de l'etape
+
+Formalisation :
+`(numero coureur, numero etape) (temps)`
+
+### Les dependances fonctionnelles elementaires
+
+Une dependance fonctionnelle A -> B est elementaire s'il existe pas  une donne C, sous-ensemble de A, decrivant une dependance fonctionnelle type C -> B
+
+Exemple: 
+- RefProduit -> LibelleProduit
+- NumCommande RefProduit -> QuantiteCommande
+- <strike>NumCommande RefProduit -> DesignationProduit</strike>
+
+### Les dependance fonctionnelle elementaire directe
+
+On dit que la dependance fonctionnelle A -> B est directe s'il n'existe aucun attribut C tel l'on puisse avec A -> C et C -> B
+
+Cela signifie que la depandance fonctionnelle entre A et B ne peut pas etre obtenue par transitivite
+
+Exemple :
+- RefPromo -> NumApprenant
+- NumApprenant -> NomApprenant
+- RefPromo -> NomApprenant : RefPromo -> NumApprenant -> NomApprenant
+
+#### Sujet TP/TD MCD jour 1 : 
+
+![Alt text](image-11.png)
+![Alt text](image-4.png)
+![Alt text](image-5.png)
+![Alt text](image-6.png)
+
+- lancer AnalyseSI : 
+
+``` sh
+cd Downloads
+java -jar AnalyseSI-0.80.jar
+```
+
+- Le but de l'exercice est d'elaborer un MCD a partir d'un dictionnaire de donnees
+
+    - Ici on va introduire les notions d'entite, de relation et de proprietes
+
+### Les proprietes sont les infos de bases d'un SI
+
+#### Les entites sont les objets du SI
+
+![Alt text](image-8.png)
+
+Quelque definitions :
+   - entite forte : une entite qui depend pas d'une autre entite pour exister
+   - entite faible : une entite qui depend d'une autre entite pour exister 
+
+#### Les relations
+
+![Alt text](image-9.png)
+
+#### **Les cardinalites** : elles permettent de definir le nombre d'occurence d'une entite par rapport a une autre entite
+
+![Alt text](image-10.png)
+
+#### Les relations "porteuses"
+
+Une relation est dite porteuse si elle possede des proprietes
+
+#### Les relations "reflexives"
+
+Une relation est dite reflexive si elle relie une entite a elle meme
+
+#### Quelques regles de conception :
+
+- toute entite doit avoir un identifiant
+- toutes les proprietes dependent fonctionnellement de l'identifiant
+- le nom d'une propriete ne doit apparaitre qu'une seule fois dans le MCD : si vous avez une entite Eleve et une entite Professeur, vous ne pouvez pas avoir une propriete nom dans les deux entite. Il faut donc renommer la propriete nom de l'entite Professeur en nomProfesseur par exemple
+- les propriete issues d'un calcul ne doivent pas apparaitre dans le MCD
+
+##### Les contraintes d'integrite fonctionnelle (CIF)
+
+Definitions : une CIF est definie par le fait qu'une des entites de l'association est completement determinee par la connaissance d'une ou de plusieurs entites participant a l'association
+
+Exemple :
+
+
+Une salle peut contenir 0 ou plusieurs ordinateurs. Un ordinateur existe dans une et une seule salle. Dans ce type de relation une CIF existe si on a une cardinalite 1,1
+
+
+
+
+
