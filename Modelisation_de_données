@@ -1,0 +1,643 @@
+# Modelisation de donnes
+
+## Utilisation GIT
+
+- Initialisation d'un depot Git :
+
+``` sh
+git init
+```
+
+- Consulter l'etat du depot Git :
+
+``` sh
+git status
+```
+
+- Pour ajouter les fichiers non suivis :
+
+``` sh
+git add .
+```
+
+- Sauvegarder le travail :  
+
+``` sh
+git commit -m "votre message du commit"
+```
+
+## Merise
+
+- Methode de modelisation de donnes 
+
+- Acronyme : Methode d'Etude et de Realisation Informatique pour les Systemes d'Entreprise
+
+- Representer par 3 points :
+    - une approche dite systemique : on transforme les porcessus de l'entreprise en systeme d'information
+    - une separation des donnees et des traitements
+    - une approche nivelee
+
+### L'approche systemique
+
+![Alt text](image-1.png)
+
+    - Le systeme de pilotage :
+        **piloter** le SI
+
+    - Le systeme d'information :
+        **utiliser** le SI
+
+    - Le systeme operant :
+        **produire** les donnees du SI
+
+### Separation des donnees et des traitements
+
+3 etapes :
+
+- l'analyse des flux (identifier)
+- l'etude des documents internes (factures, bon de livraison, ...)
+- l'etude des documents externes (fournisseurs, clients, ...)
+
+Les differents types dinformation :
+
+- les infos de bases ou elementaires : ce sont les donnees de base du systeme d'information
+- les infos calculees : ce sont les donnees calculees a partir des donnees de base
+- les traitements ou les fonctions : ce sont les traitements effectues sur les donnees de base pour obtenir les donnees calculees
+
+En resume : vous devrez identifier les donnees et les traitements effectues sur ces donnees
+
+### L'approche nivelee
+
+4 niveaux :
+    
+- le niveau conceptuel
+- le niveau organisationnel
+- le niveau logique
+- le niveau physique
+
+#### Le niveau conceptuel
+
+Modeliser les donnees de l'entreprise en utilisant un MCD (Modele de Conception de Donnees) et modeliser les traitements effectues sur ces donnees en utilsant un MCT
+
+#### Le niveau organisationnel
+
+Integrer a l'analyse precedente toutes les notions de temporalite, de chronologie des operations, de crontaintes geographique, ... en utilisant le modele organisationnel des donnees (MOD) = modeliser les traitements
+
+En resume : on se pose les questions suivantes :
+- **Quand** les traitements sont-ils effectues ?
+- **Ou** les traitements sont-ils effectues ?
+- par **qui** les traitements sont-ils effectues ?
+
+#### Le niveau logique
+
+Modeliser les donnees en utilsant le modele logique de donnees (MLD) et les traitements avec le modele logique des traitements (MLT)
+
+Le mLD est independant des langues de programmation et des SGBD (Systeme de Gestion de Base de Donnees)
+
+On repond a la question : **Avec quoi** les traitements sont-ils effectues ?
+
+#### Le niveau physique
+
+Organisation `reelle` des donnees en utilisant le modele physique de donnees (MPD) et le modele physique des traitements (MPT)
+
+Ici, on apporte les solutions techniques de stockage des donnees et de traitement des donnees
+
+On repond a la question : **Comment** les traitements sont-ils effectues ?
+
+#### Resume : les 4 niveaux de Merise
+
+![Alt text](image.png)
+
+### Des donnees aux dependance fonctionnelles
+
+Pour etre integrees dans un systeme d'info, les donnees doivent etre triees et organisees. On va souvent les classer par type de donnees :
+
+- chaines de caracteres, format texte
+- type alphanumerique, format texte
+- le type numerique (integer, float, ...)
+- le type date (date, datetime, timestamp)
+- le logique ou booleen (true, false)
+
+<br>
+Creation d'un dictionnaire de donnees :
+
+![Alt text](image-2.png)
+
+### Les dependances fonctionnelles
+
+Intervention sur 2 attributs
+
+Exemple: une donnee A depend fonctionnellemetn d'une donnee B si la valeur de B determine la valeur de A
+
+Pour finaliser une dependance fonctionnelle on utilise la notation suivante:
+`Numero adherent (nom, prenom,code postal, ville, telephone, date d'adhesion, mail)`
+
+La partie gauche (numero adherent) est la `source` de la dependance fonctionnelle.
+La partie droite designe le `but` de la dependance
+
+
+### Les dependances fonctionnelles composees
+
+Intervention sur plusieurs attributs
+
+Exemple: pour connaitre le temps d'un coureur sur une etape donnee il nous faut son numero ou son nom ainsi que le nom ou le numero de l'etape
+
+Formalisation :
+`(numero coureur, numero etape) (temps)`
+
+### Les dependances fonctionnelles elementaires
+
+Une dependance fonctionnelle A -> B est elementaire s'il existe pas  une donne C, sous-ensemble de A, decrivant une dependance fonctionnelle type C -> B
+
+Exemple: 
+- RefProduit -> LibelleProduit
+- NumCommande RefProduit -> QuantiteCommande
+- <strike>NumCommande RefProduit -> DesignationProduit</strike>
+
+### Les dependance fonctionnelle elementaire directe
+
+On dit que la dependance fonctionnelle A -> B est directe s'il n'existe aucun attribut C tel l'on puisse avec A -> C et C -> B
+
+Cela signifie que la depandance fonctionnelle entre A et B ne peut pas etre obtenue par transitivite
+
+Exemple :
+- RefPromo -> NumApprenant
+- NumApprenant -> NomApprenant
+- RefPromo -> NomApprenant : RefPromo -> NumApprenant -> NomApprenant
+
+#### Sujet TP/TD MCD jour 1 : 
+
+![Alt text](image-11.png)
+![Alt text](image-4.png)
+![Alt text](image-5.png)
+![Alt text](image-6.png)
+
+- lancer AnalyseSI : 
+
+``` sh
+cd Downloads
+java -jar AnalyseSI-0.80.jar
+```
+
+- Le but de l'exercice est d'elaborer un MCD a partir d'un dictionnaire de donnees
+
+    - Ici on va introduire les notions d'entite, de relation et de proprietes
+
+### Les proprietes sont les infos de bases d'un SI
+
+#### Les entites sont les objets du SI
+
+![Alt text](image-8.png)
+
+Quelque definitions :
+   - entite forte : une entite qui depend pas d'une autre entite pour exister
+   - entite faible : une entite qui depend d'une autre entite pour exister 
+
+##### Les relations
+
+![Alt text](image-9.png)
+
+##### **Les cardinalites** : elles permettent de definir le nombre d'occurence d'une entite par rapport a une autre entite
+
+![Alt text](image-10.png)
+
+Petite exemple :
+
+![Alt text](image-18.png)
+![Alt text](image-19.png)
+![Alt text](image-20.png)
+
+##### Les relations "porteuses"
+
+Une relation est dite porteuse si elle possede des proprietes
+
+![Alt text](image-21.png)
+![Alt text](image-22.png)
+
+##### Les relations "reflexives"
+
+Une relation est dite reflexive si elle relie une entite a elle meme
+
+![Alt text](image-23.png)
+
+##### Quelques regles de conception :
+
+- toute entite doit avoir un identifiant
+- toutes les proprietes dependent fonctionnellement de l'identifiant
+- le nom d'une propriete ne doit apparaitre qu'une seule fois dans le MCD : si vous avez une entite Eleve et une entite Professeur, vous ne pouvez pas avoir une propriete nom dans les deux entite. Il faut donc renommer la propriete nom de l'entite Professeur en nomProfesseur par exemple
+- les propriete issues d'un calcul ne doivent pas apparaitre dans le MCD
+
+##### Les contraintes d'integrite fonctionnelle (CIF)
+
+Definitions : une CIF est definie par le fait qu'une des entites de l'association est completement determinee par la connaissance d'une ou de plusieurs entites participant a l'association
+
+Exemple :
+
+![Alt text](image-24.png)
+
+Une salle peut contenir 0 ou plusieurs ordinateurs. Un ordinateur existe dans une et une seule salle. Dans ce type de relation une CIF existe si on a une cardinalite 1,1
+
+### Modele Logique des donnees
+
+Le MLD est la suite du processus Merise, rapprochement avec la base de donnees
+
+#### Cas simple
+
+Exemple avec ce MCD :
+
+![Alt text](image-19.png)
+
+Pour obtenir le MLD :
+
+![ALt text](image-20.png)
+
+L'`entite` qui possede la cardinalite 1,1 ou 0,1 absorbe l'identifiant de l'entite la plus forte (0,n ou 1,n). Cet identifiant devient alors une cle etrangere
+
+#### Cas (0,n), (0,n) ou (1,n), (1,n)
+
+Exemple avec ce MCD :
+
+![Alt text](image-21.png)
+
+Dans le cas ou la `cardinalite max` est n des deux cotes, on cree une entite intermediaire qui va contenir les deux cles etrangeres des deux entites
+
+Continuons avec le mCD suivant :
+
+![Alt text](image-23.png)
+
+On obtient ce MLD :
+
+![Alt text](image-24.png)
+
+#### Cas d'une relation reflexive
+
+Exemple avec ce MCD :
+
+![Alt text](image-25.png)
+
+![Alt text](image-26.png)
+
+#### Regles de passage du MCD au MLD
+
+Règles simples de passage du MCD au MLD L’entité qui possède la cardinalité maximale égale à 1 recevra l’identifiant ou les identifiants des entités ayant les cardinalités maximales les plus fortes.
+
+Les relations ayant toutes leurs entités reliées avec des cardinalités maximales supérieures à 1 se transformeront en entité en absorbant les identifiants des entités jointes.
+
+Toute relation porteuse de propriétés se transformera en entité et absorbera comme clé étrangère les identifiants des entités qui lui sont liées.
+
+Toute relation réflexive se transformera en entité et absorbera comme clé étrangère l’identifiant de l’entité qui lui est liée.
+
+-> accès support https://github.com/bendahmanem/ISITECH-2223-B1-MDD.git
+
+MCD:
+![Alt text](image-28.png)
+MLD :
+![Alt text](image-29.png)
+
+### Modele physique des donnees (MPD)
+
+Voici le schema relationnel correspondant au MLD precedent :
+
+Diplômes (Diplomes)
+
+Possède (#NumEmployé, #Diplôme, Date d’obtention)
+
+Employés (NumEmployé, Nom, Prénom, Adresse, Code Postal, Ville, Téléphone)
+
+Tables (NumTable, Capacité)
+
+Date (Date)
+
+Service (TypeService, Désignation)
+
+Boissons Diverses (NumBoissons, Désignation, Prix de vente)
+
+Contenir (#NumCommande, #NumBoissons, Quantité)
+
+Commande (NumCommande, #Numemployé, #Date, #TypeService, #NumTable)
+
+Comprend (#NumMenu, #NumCommande, Quantité)
+
+Menus (NumMenu, Libellé, Prix de vente)
+
+Constitué (#NumMenu, #NumPlat)
+
+Constituer (#NumCommande, #NumPlat, Quantité)
+
+Sélectionner (#NumCommande, #NumVin, Quantité)
+
+Carte des vins (NumVin, Nom du vin, Millesime, Prix de vente)
+
+Carte des plats (NumPlat, LibelléPlat, Prix de vente, #NumType)
+
+Type des plats (NumType, Désignation)
+
+Bouteilles (NumBouteille, Date Achat, Prix d’achat, # NumVin, #NumViticulteur)
+
+Viticulteur (NumViticulteur, Nom viticulteur, Prénom viticulteur, Adresse viticulteur, Code postal, Ville, Téléphone)
+
+A partir d'ici il est facile de generer le script SQL correspondant :
+
+``` sh
+CREATE TABLE CARTE_DES_VINS
+   (
+   NUMVIN INTEGER(2) NOT NULL ,
+   NOM_DU_VIN CHAR(40)   ,
+   MILLESIME INTEGER(2)  ,
+   PRIX_DE_VENTE REAL(5,2)
+,
+    PRIMARY KEY (NUMVIN) CONSTRAINT PK_CARTE_DES_VINS
+   );
+
+CREATE TABLE BOUTEILLES
+   (
+   NUMVITICULTEUR INTEGER(2) NOT NULL ,
+   NUMVIN INTEGER(2) NOT NULL ,
+   NUMBOUTEILLE INTEGER(2) NOT NULL ,
+   DATE_ACHAT DATE(8) ,
+   PRIX_D_ACHAT REAL(5,2)
+,
+    PRIMARY KEY (NUMVITICULTEUR, NUMVIN, NUMBOUTEILLE) CONSTRAINT
+PK_BOUTEILLES
+   );
+
+
+CREATE TABLE VITICULTEUR
+   (
+   NUMVITICULTEUR INTEGER(2) NOT NULL ,
+   NOM_VITICULTEUR CHAR(20) ,
+   PRÉNOM_VITICULTEUR CHAR(20) ,
+   ADRESSE_VITICULTEUR CHAR(40) ,
+   CODE_POSTAL CHAR(5) ,
+   VILLE CHAR(40) ,
+   TÉLÉPHONE CHAR(15)
+,
+    PRIMARY KEY (NUMVITICULTEUR) CONSTRAINT PK_VITICULTEUR
+   );
+```
+
+#### Exercice 1 :
+
+Dictionnaire de donnees :
+
+![Alt text](image-13.png)
+
+MCD :
+
+![Alt text](image-12.png)
+
+MLD :
+
+![Alt text](image-14.png)
+
+MPD :
+
+- schema relationnel :
+
+Vente (id_vente, date_vente, quantite_vente, #id_produit)
+
+Produit (id_produit, nom_produit, #id_categorie)
+
+Categorie (id_categorie, nom_categorie)
+
+- script SQL :
+
+``` SQL
+CREATE TABLE VENTE
+(
+    ID_VENTE INTEGER NOT NULL,
+    DATE_VENTE DATE
+    QUANTITE_VENTE CHAR
+,
+PRIMARY KEY (ID_VENTE) CONSTRAINT PK_VENTE
+);
+
+CREATE TABLE PRODUIT
+(
+    ID_PRODUIT INTEGER NOT NULL,
+    NOM_PRODUIT CHAR
+,
+PRIMARY KEY (ID_PRODUIT) CONSTRAINT PK_PRODUIT
+);
+
+CREATE TABLE CATEGORIE
+(
+    ID_CATEGORIE INTEGER NOT NULL,
+    NOM_CATEGORIE CHAR
+,
+PRIMARY KEY (ID_CATEGORIE) CONSTRAINT PPK_CATEGORIE
+);
+```
+
+#### Exercice 2 :
+
+Dictionnaire de donnees :
+
+![Alt text](image-15.png)
+
+MCD :
+
+![Alt text](image-16.png)
+
+MLD :
+
+![Alt text](image-17.png)
+
+MPD :
+
+- schema relationnel :
+
+Ensemble (id_ens_Ensemble, designation_Ensemble)  
+
+Sous_Ensemble (id_SE_Sous_Ensemble, designation_Sous_Ensemble, Longueur_Sous_Ensemble, 
+Largeur_Sous_Ensemble, hauteur_Sous_Ensemble, prix_unitaire_Sous_Ensemble)  
+
+Composant (id_composant_Composant, designation_Composant, prix_unitaire_Composant)  
+
+LienEnsSE (#id_ens_Ensemble, #id_SE_Sous_Ensemble, quantite_LienEnsSE)  
+
+LienEnsComposant (#id_composant_Composant, #id_ens_Ensemble, quantite_LienEnsComposant)  
+
+LienSEComposant (#id_SE_Sous_Ensemble, #id_composant_Composant, quantite_LienSEComposant) 
+
+- script SQL :
+
+``` SQL
+CREATE TABLE ENSEMBLE 
+(
+    id_ens_Ensemble INT AUTO_INCREMENT NOT NULL, 
+    designation_Ensemble CHAR
+, 
+PRIMARY KEY (id_ens_Ensemble) CONSTRAINT PK_ENSEMBLE
+);
+
+CREATE TABLE SOUS_ENSEMBLE 
+(
+    id_SE_Sous_Ensemble INT AUTO_INCREMENT NOT NULL, 
+    designation_Sous_Ensemble CHAR, 
+    Longueur_Sous_Ensemble INTEGER, 
+    Largeur_Sous_Ensemble INTEGER, 
+    hauteur_Sous_Ensemble INTEGER, 
+    prix_unitaire_Sous_Ensemble INTEGER
+, 
+PRIMARY KEY (id_SE_Sous_Ensemble) CONSTRAINT PK_SOUS_ENSEMBLE
+);
+
+CREATE TABLE COMPOSANT 
+(
+    id_composant_Composant INT AUTO_INCREMENT NOT NULL, 
+    designation_Composant INTEGER, 
+    prix_unitaire_Composant INTEGER
+, 
+PRIMARY KEY (id_composant_Composant) CONSTRAINT PK_COMPOSANT
+);
+
+CREATE TABLE LienEnsSE 
+(
+    id_ens_Ensemble INT AUTO_INCREMENT NOT NULL, 
+    id_SE_Sous_Ensemble INT AUTO_INCREMENT NOT NULL, 
+    quantite_LienEnsSE INTEGER
+, 
+PRIMARY KEY (id_ens_Ensemble,  id_SE_Sous_Ensemble) CONSTRAINT PK_LienEnsSE
+);
+
+CREATE TABLE LienEnsComposant 
+(
+    id_composant_Composant INT AUTO_INCREMENT NOT NULL,
+    id_ens_Ensemble INT AUTO_INCREMENT NOT NULL, 
+    quantite_LienEnsComposant INTEGER
+, 
+PRIMARY KEY (id_composant_Composant,  id_ens_Ensemble) CONSTRAINT PK_LienEnsComposant
+);
+
+CREATE TABLE LienSEComposant 
+(
+    id_SE_Sous_Ensemble INT AUTO_INCREMENT NOT NULL, 
+    id_composant_Composant INT AUTO_INCREMENT NOT NULL, 
+    quantite_LienSEComposant INTEGER
+, 
+PRIMARY KEY (id_SE_Sous_Ensemble,  id_composant_Composant) CONSTRAINT PK_LienSEComposant
+);
+```
+
+#### Exercice 3 :
+
+Dictionnaire de donnees :
+
+![Alt text](image-30.png)
+
+MCD :
+
+![Alt text](image-31.png)
+
+MLD :
+
+![Alt text](image-32.png)
+
+MPD : 
+
+- schema relationnel :
+
+Clients (id_Clients, nom_Clients, prenom_Clients, adresse_Clients, telephone_Clients)  
+
+Materiel (id_Materiel, type_Materiel, marque_Materiel, modele_Materiel)  
+
+Intervention (id_Intervention, date_Intervention, heure_debut_Intervention, heure_fin_Intervention, 
+type_Intervention, prix_horaire_Intervention, #id_Clients)  
+
+Composant (id_Composant, designation_Composant, prix_unitaire_Composant)  
+
+Vente_Materiel (id_Vente_Materiel, quantite_Vente_Materiel)  
+
+Comprend (#id_Intervention, #id_Materiel)  
+
+Inclut (#id_Intervention, #id_Composant)  
+
+Acheter (#id_Composant, #id_Vente_Materiel) 
+
+- script SQL :
+
+``` SQL
+CREATE TABLE Clients 
+(
+    id_Clients INT AUTO_INCREMENT NOT NULL, 
+    nom_Clients VARCHAR, 
+    prenom_Clients VARCHAR, 
+    adresse_Clients VARCHAR, 
+    telephone_Clients INTEGER
+, 
+PRIMARY KEY (id_Clients) CONSTRAINT Clients
+);
+
+CREATE TABLE Materiel 
+(
+    id_Materiel INT AUTO_INCREMENT NOT NULL, 
+    type_Materiel VARCHAR, 
+    marque_Materiel VARCHAR, 
+    modele_Materiel VARCHAR
+, 
+PRIMARY KEY (id_Materiel) CONSTRAINT Materiel
+);
+
+CREATE TABLE Intervention 
+(
+    id_Intervention INT AUTO_INCREMENT NOT NULL, 
+    date_Intervention DATE, 
+    heure_debut_Intervention DATETIME, 
+    heure_fin_Intervention DATETIME, 
+    type_Intervention VARCHAR, 
+    prix_horaire_Intervention FLOAT, 
+, 
+PRIMARY KEY (id_Intervention) CONSTRAINT Intervention
+);
+
+CREATE TABLE Composant 
+(
+    id_Composant INT AUTO_INCREMENT NOT NULL, 
+    designation_Composant VARCHAR, 
+    prix_unitaire_Composant FLOAT
+, 
+PRIMARY KEY (id_Composant) CONSTRAINT Composant
+); 
+
+CREATE TABLE Vente_Materiel 
+(
+    id_Vente_Materiel INT AUTO_INCREMENT NOT NULL, 
+    quantite_Vente_Materiel INTEGER
+, 
+PRIMARY KEY (id_Vente_Materiel) CONSTRAINT Vente_Materiel
+);
+
+CREATE TABLE Comprend 
+(
+    id_Intervention INT AUTO_INCREMENT NOT NULL, 
+    id_Materiel INT AUTO_INCREMENT NOT NULL
+, 
+PRIMARY KEY (id_Intervention,  id_Materiel) CONSTRAINT Comprend
+);
+
+CREATE TABLE Inclut 
+(
+    id_Intervention INT AUTO_INCREMENT NOT NULL, 
+    id_Composant INT AUTO_INCREMENT NOT NULL
+, 
+PRIMARY KEY (id_Intervention,  id_Composant) CONSTRAINT Incult
+);
+
+CREATE TABLE Acheter 
+(
+    id_Composant INT AUTO_INCREMENT NOT NULL, 
+    id_Vente_Materiel INT AUTO_INCREMENT NOT NULL
+, 
+PRIMARY KEY (id_Composant,  id_Vente_Materiel) CONSTRAINT Acheter
+); 
+```
+
+
+
+
+
+
+
+
+
