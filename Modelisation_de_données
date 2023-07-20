@@ -632,6 +632,112 @@ CREATE TABLE Acheter
 PRIMARY KEY (id_Composant,  id_Vente_Materiel) CONSTRAINT Acheter
 ); 
 ```
+<br>
+
+## Les formes normales (FN)
+
+Ensemble de regles qui a pour but d'eviter les anomalies au sein des BDDR (Base De Donnee Relationnelle).
+Pour appliquer les concepts des formes normales il est necessaire de connaitre les trois premieres formes normales.
+
+### Forme normale 1 (1FN)
+
+Une relation est en premierr forme normale si :
+
+- tous les attributs sont atomiques
+- les attributs ne contiennent pas de valeurs repetitives
+
+Exemple:
+
+Clients (NumCli, Nom, Prenom, Adresse, Telephone)
+
+![Alt text](image-33.png)
+![Alt text](image-34.png)
+
+### Forme normale 2 (2FN)
+
+Une relation est en deuxième forme normale si :
+
+- elle est en 1FN
+- si tous les attributs qui ne sont pas des cles ne dependent pas d'une partie de la cle primaire
+
+Exemple :
+
+Commande (NumClient, CodeArticle, Date, QteCommande, designation)
+
+![Alt text](image-35.png)
+
+![Alt text](image-36.png)
+
+### Forme normale 3 (3FN)
+
+Une relation est en troisieme forme normale si :
+
+- Elle est en 2FN
+- Sit toutes les dependances fonctionnelles sont directes
+
+Les attributs non cle primaire ne dependent pas d'attribut non cle primaire
+
+Exemple :
+
+Commande (NumCommande, #CodeClient, #RefArticle)
+
+![Alt text](image-37.png)
+
+### Les diagrammes des flux
+
+Modelisation des flux d'infos entre acteurs du systeme d'info et acteurs du systeme specifique
+
+Quelques definition :
+- Domaine d'etude: le perimetre d'une activite au sein d'une entreprise, d'une activite specifique
+- L'acteur: une personne, un service, une entreprise, un systeme informatique qui intervient dans le domaine d'etude moyen d'un flux d'info
+- Les flux: les infos qui circulent entre les acteurs, represente par une fleche et porte un nom et peut etre numerote (par soucis de chronologie)
+
+Representation graphique :
+
+![Alt text](image-38.png)
+
+Quelques regle a respecter :
+
+- un flux ne peut pas etre bidirectionnel
+- un flux ne doit pas etre reflexif
+- on ne represente pas les flux entre les acteurs externes
+
+## UML
+
+UML: Unified Modeling Language (langage de modélisation unifie) est un langage de modelisation de donnees. UML a ete normalise en 1997 par l' OMG (Object Management Group). Son but est de mettre en forme les concepts orientes objets au travers de diagramme.
+
+UML propose 13 diagrammes dependants de facon hierarchique et se complétant.
+
+##### Les diagrammes statiques : ils permettent de modéliser la structure d'un système
+Diagramme de classe
+Diagramme d'objets
+Diagramme de composants
+Diagramme de déploiement
+Diagramme de paquetages
+Diagramme de structure composite
+
+##### Les diagrammes comportementaux:
+Diagramme des cas d'usage
+diagramme etats-transitions
+diagramme d'activité
+
+##### Les diagrammes dynamiques:
+Diagramme de sequences
+Diagramme de communication
+Diagramme global d'interaction
+Diagramme de temps
+
+### Analogie Merise / UML
+
+Le MCD et le diagramme de classes partagent beaucoup de points communs. Les différences majeures apparaissent dans le côté objet d’UML. Cependant, au niveau du processus d’analyse, le diagramme de classes se rapproche plus du modèle logique des données. Le langage UML pour représenter une base de données ne passe pas d’un état correspondant à un MCD à un MLD. Il faut donc à l’analyste une bonne approche ou vision de la base de données pour la représenter sans faille en langage UML. Le découpage MCD, MLD apporte plus de sécurité, à ce niveau-là, qu’UML.
+
+![Alt text](image-39.png)
+
+![Alt text](image-40.png)
+
+Representation d'une relation :
+
+![Alt text](image-41.png)
 
 
 
