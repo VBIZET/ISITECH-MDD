@@ -695,16 +695,16 @@ PRIMARY KEY (id_Proprietaire)
 
 CREATE TABLE Acheter 
 (
-    id_Proprietaire **NOT FOUND** AUTO_INCREMENT NOT NULL, 
-    id_Maison **NOT FOUND** NOT NULL
+    id_Proprietaire INT AUTO_INCREMENT NOT NULL, 
+    id_Maison INT NOT NULL
 , 
 PRIMARY KEY (id_Proprietaire,  id_Maison)
 ); 
 
 CREATE TABLE Louer 
 (
-    id_Client **NOT FOUND** AUTO_INCREMENT NOT NULL, 
-    id_Proprietaire **NOT FOUND** NOT NULL
+    id_Client INT AUTO_INCREMENT NOT NULL, 
+    id_Proprietaire INT NOT NULL
 , 
 PRIMARY KEY (id_Client,  id_Proprietaire)
 );
@@ -816,6 +816,8 @@ Le MCD et le diagramme de classes partagent beaucoup de points communs. Les diff
 Representation d'une relation :
 
 ![Alt text](image-41.png)
+
+
 
 
 
