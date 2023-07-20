@@ -653,13 +653,13 @@ MPD :
 
 Maison (id_Maison, type_Maison, prix_Maison)  
 
-Locataire (id_Client, nom_Client, prenom_Client, telephone_Client)  
+Locataire (id_Locataire, nom_Locataire, prenom_Locataire, telephone_Locataire)  
 
 Proprietaire (id_Proprietaire, nom_Proprietaire, prenom_Proprietaire, telephone_Proprietaire)  
 
 Acheter (id_Proprietaire, id_Maison)  
 
-Louer (id_Client, id_Proprietaire) 
+Louer (id_Locataire, id_Proprietaire) 
 
 - script SQL :
 
@@ -675,12 +675,12 @@ PRIMARY KEY (id_Maison) CONSTRAINT Maison
 
 CREATE TABLE Locataire 
 (
-    id_Client INT AUTO_INCREMENT NOT NULL, 
-    nom_Client VARCHAR(20), 
-    prenom_Client VARCHAR(20), 
-    telephone_Client NUMERIC(20)
+    id_Locataire INT AUTO_INCREMENT NOT NULL, 
+    nom_Locataire VARCHAR(20), 
+    prenom_Locataire VARCHAR(20), 
+    telephone_Locataire NUMERIC(20)
 , 
-PRIMARY KEY (id_Client) CONSTRAINT Locataire
+PRIMARY KEY (id_Locataire) CONSTRAINT Locataire
 );
 
 CREATE TABLE Proprietaire 
@@ -703,12 +703,75 @@ PRIMARY KEY (id_Proprietaire,  id_Maison) CONSTRAINT Acheter
 
 CREATE TABLE Louer 
 (
-    id_Client INT AUTO_INCREMENT NOT NULL, 
+    id_Locataire INT AUTO_INCREMENT NOT NULL, 
     id_Proprietaire INT NOT NULL
 , 
-PRIMARY KEY (id_Client,  id_Proprietaire) CONSTRAINT Louer
+PRIMARY KEY (id_Locataire,  id_Proprietaire) CONSTRAINT Louer
 );
 ```
+
+### Corrections exercices :
+
+#### Exercice1:
+
+Voici un premier modèle conceptuel des données, qui pourrait être réalisé. Attention ce modèle présente des imperfections structurelles qui vont pénaliser la performance, la maintenance et l’intégrité de l’applicatif.
+
+MCD
+
+![Alt text](image-45.png)
+
+MLD
+
+![Alt text](image-46.png)
+
+- schema relationnel :
+
+Types(Codetype, Désignation)
+
+Produits(CodeProduits, Désignation, Prix_au_kilo, #Codetype)
+
+Date(DateDeVente)
+
+Vendre(#CodeProduits, #DateDeVente, Poids)
+
+#### Exercice2:
+
+MCD
+
+![Alt text](image-47.png)
+
+MLD
+
+![Alt text](image-48.png)
+
+#### Exercice3:
+
+Dictionnaire de donnees
+
+![Alt text](image-50.png)
+![Alt text](image-51.png)
+
+MCD
+
+![Alt text](image-49.png)
+
+MLD
+
+![Alt text](image-52.png)
+
+- schema relationnel:
+
+Clients(CodeClient, Nom, Prénom, Adresse, Code Postal, Ville, Téléphone, Mail)
+
+Matériel(CodeMatériel, Désignation, Fabriquant, Date d’achat, #CodeClient)
+
+Pièce(Référence Pièce, Libellé, Prix)
+
+Utiliser(#Référence Pièce, #NumIntervention, Qté)
+
+Intervention(NumIntervention, Descriptif Panne, Date d’intervention, Temps Passé, #CodeIntervention, #CodeMatériel)
+
+Type d’intervention(CodeIntervention, Désignation, Prix Horaire)
 
 <br>
 
