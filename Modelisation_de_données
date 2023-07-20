@@ -670,7 +670,7 @@ CREATE TABLE Maison
     type_Maison VARCHAR(20), 
     prix_Maison VARCHAR(20)
 , 
-PRIMARY KEY (id_Maison)
+PRIMARY KEY (id_Maison) CONSTRAINT Maison
 ); 
 
 CREATE TABLE Locataire 
@@ -678,9 +678,9 @@ CREATE TABLE Locataire
     id_Client INT AUTO_INCREMENT NOT NULL, 
     nom_Client VARCHAR(20), 
     prenom_Client VARCHAR(20), 
-    telephone_Client NUMERIC(50)
+    telephone_Client NUMERIC(20)
 , 
-PRIMARY KEY (id_Client)
+PRIMARY KEY (id_Client) CONSTRAINT Locataire
 );
 
 CREATE TABLE Proprietaire 
@@ -690,7 +690,7 @@ CREATE TABLE Proprietaire
     prenom_Proprietaire VARCHAR(20), 
     telephone_Proprietaire NUMERIC(20)
 , 
-PRIMARY KEY (id_Proprietaire)
+PRIMARY KEY (id_Proprietaire) CONSTRAINT Proprietaire
 ); 
 
 CREATE TABLE Acheter 
@@ -698,7 +698,7 @@ CREATE TABLE Acheter
     id_Proprietaire INT AUTO_INCREMENT NOT NULL, 
     id_Maison INT NOT NULL
 , 
-PRIMARY KEY (id_Proprietaire,  id_Maison)
+PRIMARY KEY (id_Proprietaire,  id_Maison) CONSTRAINT Acheter
 ); 
 
 CREATE TABLE Louer 
@@ -706,7 +706,7 @@ CREATE TABLE Louer
     id_Client INT AUTO_INCREMENT NOT NULL, 
     id_Proprietaire INT NOT NULL
 , 
-PRIMARY KEY (id_Client,  id_Proprietaire)
+PRIMARY KEY (id_Client,  id_Proprietaire) CONSTRAINT Louer
 );
 ```
 
