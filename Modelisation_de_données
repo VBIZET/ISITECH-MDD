@@ -1,5 +1,7 @@
 # Modelisation de donnes
 
+-> accès support : https://github.com/bendahmanem/ISITECH-2223-B1-MDD.git
+
 ## Utilisation GIT
 
 - Initialisation d'un depot Git :
@@ -286,8 +288,6 @@ Les relations ayant toutes leurs entités reliées avec des cardinalités maxima
 Toute relation porteuse de propriétés se transformera en entité et absorbera comme clé étrangère les identifiants des entités qui lui sont liées.
 
 Toute relation réflexive se transformera en entité et absorbera comme clé étrangère l’identifiant de l’entité qui lui est liée.
-
--> accès support https://github.com/bendahmanem/ISITECH-2223-B1-MDD.git
 
 MCD:
 ![Alt text](image-28.png)
