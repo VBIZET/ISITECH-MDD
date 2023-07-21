@@ -290,8 +290,11 @@ Toute relation porteuse de propriétés se transformera en entité et absorbera 
 Toute relation réflexive se transformera en entité et absorbera comme clé étrangère l’identifiant de l’entité qui lui est liée.
 
 MCD:
+
 ![Alt text](image-28.png)
+
 MLD :
+
 ![Alt text](image-29.png)
 
 ### Modele physique des donnees (MPD)
